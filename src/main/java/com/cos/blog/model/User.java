@@ -4,12 +4,15 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicInsert;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,6 +25,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Entity//테이블화. User클래스 Mysql에 자동으로 테이블 생성됨
+//@DynamicInsert//null인값 인서트 안함
 public class User {
 	
 	@Id//Priamry key
@@ -34,8 +38,9 @@ public class User {
 	@Column(nullable=false,length=100)//나중에 해쉬로 변경해서 암호화하기때문에 길게
 	private String password;
 	
-	@ColumnDefault("'user'")
-	private String role;
+	//@ColumnDefault("user")
+	@Enumerated(EnumType.STRING)//db는 roletype라는 타입이 없다. 조심
+	private RoleType role;
 	
 	@CreationTimestamp//시간이 자동으로입력이됨
 	private Timestamp createDate;//생성시간

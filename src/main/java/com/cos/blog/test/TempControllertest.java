@@ -28,4 +28,15 @@ public class TempControllertest {
 		//fullname: /WEB-INF/views//test.jsp.jsp
 		return "test";
 	}
+	/////////////////////
+	@GetMapping("/")
+	public String temptest() {
+		
+		return "/main";
+		
+	}
+	
+	
+	
+	
 }
